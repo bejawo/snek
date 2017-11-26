@@ -13,7 +13,22 @@ void Board::DrawCell(const Location & loc, Color c)
 	assert(loc.x < width);
 	assert(loc.y >= 0);
 	assert(loc.y < height);
-	gfx.DrawRectDim(loc.x * dimension, loc.y * dimension, dimension, dimension, c);
+	const int off_x = x + borderThickness;
+	const int off_y = y + borderThickness;
+	gfx.DrawRectDim(off_x + loc.x * dimension, off_y + loc.y * dimension, dimension, dimension, c);
+}
+
+void Board::DrawBorder()
+{
+	const int top = y;
+	const int left = x;
+	const int bottom = top + borderThickness * 2 + height * dimension;
+	const int right = left + borderThickness * 2 + width * dimension;
+
+	gfx.DrawRect(left, top, right, top + borderThickness, borderColor);
+	gfx.DrawRect(left, bottom - borderThickness, right, bottom, borderColor);
+	gfx.DrawRect(left, top + borderThickness, left + borderThickness, bottom - borderThickness, borderColor);
+	gfx.DrawRect(right - borderThickness, top + borderThickness, right, bottom - borderThickness, borderColor);
 }
 
 int Board::GetGridWidth() const
