@@ -19,6 +19,6 @@ private:
 	static constexpr int x = 20;
 	static constexpr int y = 20;
 	static constexpr int borderThickness = 5;
-	static constexpr Color borderColor = Colors::LightGray;
+	static constexpr Color borderColor = Colors::Green;
 	Graphics& gfx;
 };
