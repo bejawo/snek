@@ -19,6 +19,7 @@ private:
 	static constexpr int x = 20;
 	static constexpr int y = 20;
 	static constexpr int borderThickness = 5;
+	static constexpr int cellPadding = 2;
 	static constexpr Color borderColor = Colors::Green;
 	Graphics& gfx;
 };
