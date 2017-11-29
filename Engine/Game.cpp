@@ -82,6 +82,8 @@ void Game::UpdateModel()
 				if (eating)
 				{
 					snek.Grow(rng);
+					if (snekMovePeriod >= 5)
+						snekMovePeriod--;
 				}
 				snek.MoveBy(delta_loc);
 				if (eating)
