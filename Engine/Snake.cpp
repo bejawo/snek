@@ -22,11 +22,11 @@ Location Snake::GetNextHeadLocation(const Location & delta_loc) const
 	return l;
 }
 
-void Snake::Grow()
+void Snake::Grow(std::mt19937 & rng)
 {
 	if (nSegments < nSegmentsMax)
 	{
-		segments[nSegments].InitBody();
+		segments[nSegments].InitBody(rng);
 		++nSegments;
 	}
 }
@@ -69,9 +69,10 @@ void Snake::Segment::InitHead(const Location & in_loc)
 	c = Snake::headColor;
 }
 
-void Snake::Segment::InitBody()
+void Snake::Segment::InitBody(std::mt19937 & rng)
 {
-	c = Snake::bodyColor;
+	//c = Snake::bodyColor;
+	c = GenerateColor(rng);
 }
 
 void Snake::Segment::Follow(const Segment & next)
@@ -83,6 +84,14 @@ void Snake::Segment::MoveBy(const Location & delta_loc)
 {
 	assert(abs(delta_loc.x) + abs(delta_loc.y) == 1);
 	loc.Add(delta_loc);
+}
+
+Color Snake::Segment::GenerateColor(std::mt19937 & rng)
+{
+	std::uniform_int_distribution<int> green(150, 255);
+	unsigned char i = green(rng);
+	Color color = { 10, i, 10 };
+	return color;
 }
 
 void Snake::Segment::Draw(Board & brd) const

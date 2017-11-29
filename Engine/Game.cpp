@@ -77,7 +77,7 @@ void Game::UpdateModel()
 				const bool eating = next == goal.GetLocation();
 				if (eating)
 				{
-					snek.Grow();
+					snek.Grow(rng);
 				}
 				snek.MoveBy(delta_loc);
 				if (eating)

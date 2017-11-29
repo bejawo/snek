@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Board.h"
+#include <random>
 
 class Snake
 {
@@ -9,9 +10,10 @@ private:
 	{
 	public:
 		void InitHead(const Location& loc);
-		void InitBody();
+		void InitBody(std::mt19937 & rng);
 		void Follow(const Segment& next);
 		void MoveBy(const Location& delta_loc);
+		Color GenerateColor(std::mt19937& rng);
 		void Draw(Board& brd) const;
 		const Location& GetLocation() const;
 	private:
@@ -23,7 +25,7 @@ public:
 	Snake(const Location& loc);
 	void MoveBy(const Location& delta_loc);
 	Location GetNextHeadLocation(const Location& delta_loc) const;
-	void Grow();
+	void Grow(std::mt19937 & rng);
 	void Draw(Board& brd) const;
 	bool IsInTileExceptEnd(const Location& target) const;
 	bool IsInTile(const Location& target) const;
