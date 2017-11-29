@@ -43,7 +43,11 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
-	if (!gameIsOver)
+	if (titleScreen && wnd.kbd.KeyIsPressed(VK_RETURN))
+	{
+		titleScreen = false;
+	}
+	if (!gameIsOver && !titleScreen)
 	{
 		if (wnd.kbd.KeyIsPressed(VK_UP))
 		{
@@ -91,11 +95,18 @@ void Game::UpdateModel()
 
 void Game::ComposeFrame()
 {
-	brd.DrawBorder();
-	snek.Draw(brd);
-	goal.Draw(brd);
-	if (gameIsOver)
+	if (titleScreen)
 	{
-		SpriteCodex::DrawGameOver(200, 200, gfx);
+		SpriteCodex::DrawTitle(200, 200, gfx);
+	}
+	else
+	{
+		brd.DrawBorder();
+		snek.Draw(brd);
+		goal.Draw(brd);
+		if (gameIsOver)
+		{
+			SpriteCodex::DrawGameOver(200, 200, gfx);
+		}
 	}
 }
